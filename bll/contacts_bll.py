@@ -1,11 +1,12 @@
-from dal.contacts_dal import retrieve_contacts as retrieve_contacts_json
-from dal.contacts_db_dal import retrieve_contacts as retrieve_contacts_db
+from dal.abstract_contacts import ContactsABC, ContactsFactory
 
-def get_service_proxy_registry():
-    return {
-        "retrieve_contacts_db": retrieve_contacts_db,
-        "retrieve_contacts_json": retrieve_contacts_json
-    }
+class ContactsBll:
 
-def retrieve_contacts(source):
-    return retrieve_contacts_json().get(f"retrieve_contacts_{source}")()
+    def __init__(self, source):
+        self.__contact_dao: ContactsABC = ContactsFactory().create_instance(source)
+
+    def retrieve_contacts(self):
+        return self.__contact_dao.retrieve_contacts()
+
+    def search_contacts(self, keyword):
+        return self.__contact_dao.search_contacts(keyword)

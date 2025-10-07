@@ -1,6 +1,4 @@
-from controller.address_book import display_contacts
-# from dal.contacts_db_dal import retrieve_contacts
+from controller.address_book import Contacts
 
-display_contacts()
+Contacts().display_contacts("json")
 
-# print(retrieve_contacts())

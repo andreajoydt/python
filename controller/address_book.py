@@ -1,5 +1,9 @@
-from bll.contacts_bll import retrieve_contacts
+from bll.contacts_bll import ContactsBll
 
-def display_contacts():
-    for record in retrieve_contacts("db").get("contacts", []):
-        print(f"{record.get("name", "")} \t\t {record.get("contact_no")}")
+class Contacts:
+    def __init__(self, source="json"):
+        self.contacts_bll = ContactsBll(source)
+
+    def display_contacts(self):
+        for record in self.contacts_bll.search_contacts().get("contacts", []):
+            print(f"{record.get("name", "")} \t\t {record.get("contact_no")}")
